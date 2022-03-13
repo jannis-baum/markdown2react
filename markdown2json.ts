@@ -4,28 +4,42 @@ export type ComponentDef = {
         key: string,
         [prop: string]: any
     },
-    children: [ComponentDef] | null
+    children: Array<ComponentDef | string> | null
 }
 
-const placeholder: ComponentDef = {
-    name: 'placeholder', props: { key: '0' }, children: null
+function parseParagraph(para: string, idx: number): ComponentDef {
+    const key = `para-${idx}`
+    const headingMatch = para.match(/^(#+)/)
+    return {
+        name: headingMatch ? `h${headingMatch[1].length}` : 'p',
+        props: { key: key },
+        children: [parseSpan(
+            para.slice(headingMatch ? headingMatch[1].length : 0).trim(),
+            key
+        )]
+    }
 }
 
-function parseParagraph(para: string): ComponentDef {
-    return placeholder;
-}
-
-function parseSpan(span: string): ComponentDef {
-    return placeholder;
+function parseSpan(span: string, paraKey: string): ComponentDef {
+    const key = `${paraKey}-span`
+    return {
+        name: 'span',
+        props: { key: key },
+        children: [span]
+    }
 }
 
 function section(paras: Array<ComponentDef>): ComponentDef {
-    return placeholder;
+    return {
+        name: 'div',
+        props: { key: 'section-0', className: 'section-0'},
+        children: paras
+    }
 }
 
 export function parseMarkdown(markdown: string): ComponentDef {
-    const paras = markdown.split(/\r?\n(\s*\r?\n)+/).map(
-        (paraString) => parseParagraph(paraString)
+    const paras = markdown.split(/\r?\n(?:\s*\r?\n)+/).map(
+        (paraString, idx) => parseParagraph(paraString, idx)
     );
     return section(paras);
 }
