@@ -1,15 +1,15 @@
 import { ComponentDef } from "../markdown2json";
-import { ele_bold, prp_bold, reg_bold, reg_code, reg_italic, reg_strikethrough } from "../definitions";
+import { span_elements } from "../definitions";
 
 let regInline = new RegExp(
-    [reg_bold, reg_italic, reg_strikethrough, reg_code]
-        .map((r) => r.toString().slice(1, -1))
-    .join('|')
+    Object.keys(span_elements).map((key) =>
+        span_elements[key].regex.toString().slice(1, -1)
+    ).join('|')
 );
 
 export default function parseSpan(span: string, parentKey: string): ComponentDef {
     const key = `${parentKey}-span`;
-    return _parseInline(span, key);
+    return _parseInline(span.replace(/\s+/g, ' '), key);
 }
 
 function _parseInline(text: string, key: string, name: string = 'span', props: object = {}): ComponentDef {
@@ -19,16 +19,17 @@ function _parseInline(text: string, key: string, name: string = 'span', props: o
     while (match = text.slice(cursor).match(regInline)) {
         const matchIndex = match!.index! + cursor;
         children.push(text.slice(cursor, matchIndex));
+
         const cap = match!.groups!;
-        if (cap.bold) {
-            const start = matchIndex + cap.limBold!.length
-            children.push(_parseInline(
-                text.slice(start, start + cap.bold!.length),
-                `${key}-${cursor}`,
-                ele_bold, prp_bold
-            ));
-        }
-        cursor += matchIndex + match![0].length;
+        const [format, content] = Object.entries(cap).find(([key, val]) => val && !key.endsWith('Lim'))!;
+        const start = matchIndex + cap[`${format}Lim`]!.length;
+
+        children.push(_parseInline(
+            text.slice(start, start + content.length),
+            `${key}-${cursor}`,
+            span_elements[format].element, span_elements[format].props
+        ));
+        cursor = matchIndex + match![0].length;
     }
     if (cursor !== text.length) children.push(text.slice(cursor, text.length));
     return {

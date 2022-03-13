@@ -5,20 +5,23 @@ export const prp_section = (depth: number) => {
 export const ele_section = 'div';
 
 // SPAN ELEMENTS
-// bold
-export const reg_bold = /(?<limBold>[\*\_]{2})(?<bold>.+?)\k<limBold>/;
-export const prp_bold = {};
-export const ele_bold = 'b';
-// italic
-export const reg_italic = /(?<limItalic>[\*\_])(?<italic>.+?)\k<limItalic>/;
-export const prp_italic = {};
-export const ele_italic = 'i';
-// strikethrough
-export const reg_strikethrough = /(?<limStrikethrough>[\~]{2})(?<strikethrough>.+?)\k<limStrikethrough>/;
-export const prp_strikethrough = {};
-export const ele_strikethrough = 's';
-// code
-export const reg_code = /(?<limCode>[\`]+)(?<code>.+?)\k<limCode>/;
-export const prp_code = {};
-export const ele_code = 'code';
+export const span_elements: { [key: string]: { regex: RegExp, element: string, props: object } } = {
+    bold: {
+        regex: /(?<boldLim>[\*\_]{2})(?<bold>.+?)\k<boldLim>/,
+        element: 'b',
+        props: {}
+    }, italic: {
+        regex: /(?<italicLim>[\*\_])(?<italic>.+?)\k<italicLim>/,
+        element: 'i',
+        props: {}
+    }, strikethrough: {
+        regex: /(?<strikethroughLim>[\~]{2})(?<strikethrough>.+?)\k<strikethroughLim>/,
+        element: 's',
+        props: {}
+    }, code: {
+        regex: /(?<codeLim>[\`]+)(?<code>.+?)\k<codeLim>/,
+        element: 'code',
+        props: {}
+    }
+}
 
