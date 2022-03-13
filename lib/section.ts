@@ -1,4 +1,5 @@
 import { ComponentDef } from "../markdown2json";
+import { cls_section } from "../definitions";
 
 export default function section(paras: Array<ComponentDef>): ComponentDef {
     return _section(paras, 'section-body');
@@ -24,7 +25,7 @@ function _section(innerParas: Array<ComponentDef>, key: string, depth: number = 
 
     return {
         name: 'div',
-        props: { key: key, className: `section-${depth}`},
+        props: { key: key, className: cls_section(depth) },
         children: sectionParas
     }
 }
