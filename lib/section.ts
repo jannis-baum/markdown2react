@@ -7,16 +7,16 @@ export default function section(paras: Array<ComponentDef>): ComponentDef {
 
 function _section(innerParas: Array<ComponentDef>, key: string, depth: number = 0): ComponentDef {
 
-    let sectionParas = Array<ComponentDef>();
+    let children = Array<ComponentDef>();
     let childSED = _firstChildStartEndDepth(innerParas, 1);
 
     if (!childSED) {
-        sectionParas = innerParas;
+        children = innerParas;
     } else {
-        sectionParas.push(...innerParas.slice(0, childSED!.start));
+        children.push(...innerParas.slice(0, childSED!.start));
         let childIndex = 0;
         while (childSED) {
-            sectionParas.push(_section(
+            children.push(_section(
                 innerParas.slice(childSED!.start, childSED!.end),
                 `${key}-${childIndex++}`, childSED!.depth))
             childSED = _firstChildStartEndDepth(innerParas, childSED!.end);
@@ -26,7 +26,7 @@ function _section(innerParas: Array<ComponentDef>, key: string, depth: number = 
     return {
         name: ele_section,
         props: { key: key, ...prp_section(depth) },
-        children: sectionParas
+        children: children
     }
 }
 
