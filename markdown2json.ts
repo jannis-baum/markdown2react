@@ -1,3 +1,4 @@
+import parseSpan from "./lib/span"
 import section from "./lib/section"
 
 export type ComponentDef = {
@@ -19,15 +20,6 @@ function parseParagraph(para: string, idx: number): ComponentDef {
             para.slice(headingMatch ? headingMatch[1].length : 0).trim(),
             key
         )]
-    }
-}
-
-function parseSpan(span: string, parentKey: string): ComponentDef {
-    const key = `${parentKey}-span`
-    return {
-        name: 'span',
-        props: { key: key },
-        children: [span]
     }
 }
 
