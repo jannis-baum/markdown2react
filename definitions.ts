@@ -11,7 +11,7 @@ export const span_elements: { [key: string]: { regex: RegExp, element: string, p
         element: 'b',
         props: {}
     }, italic: {
-        regex: /(?<italicLim>[\*\_])(?<italic>.+?)\k<italicLim>/,
+        regex: /(?<italicLim>[\*\_])(?<italic>.+?)(?<![\*\_])\k<italicLim>(?![\*\_])/,
         element: 'i',
         props: {}
     }, strikethrough: {
