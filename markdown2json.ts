@@ -1,3 +1,5 @@
+import section from "./lib/section"
+
 export type ComponentDef = {
     name: string,
     props: {
@@ -20,8 +22,8 @@ function parseParagraph(para: string, idx: number): ComponentDef {
     }
 }
 
-function parseSpan(span: string, paraKey: string): ComponentDef {
-    const key = `${paraKey}-span`
+function parseSpan(span: string, parentKey: string): ComponentDef {
+    const key = `${parentKey}-span`
     return {
         name: 'span',
         props: { key: key },
@@ -29,16 +31,8 @@ function parseSpan(span: string, paraKey: string): ComponentDef {
     }
 }
 
-function section(paras: Array<ComponentDef>): ComponentDef {
-    return {
-        name: 'div',
-        props: { key: 'section-0', className: 'section-0'},
-        children: paras
-    }
-}
-
 export function parseMarkdown(markdown: string): ComponentDef {
-    const paras = markdown.split(/\r?\n(?:\s*\r?\n)+/).map(
+    const paras = markdown.split(/\r?\n(?:\s*\r?\n)+/).filter((para) => para !== '').map(
         (paraString, idx) => parseParagraph(paraString, idx)
     );
     return section(paras);
