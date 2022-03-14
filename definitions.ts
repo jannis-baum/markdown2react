@@ -32,7 +32,7 @@ export const def_image: {
     wrapper: string | undefined | null, wrapper_props: object | undefined | null,
     gallery_container: string, gallery_container_props: object
 } = {
-    regex: /!\[(?<altText>.*?)\]\((?<path>.*?)(?: "(?<title>.*?)")?\)(?<props>{.*?})?/,
+    regex: /!\[(?<altText>.*?)\]\((?<path>.*?)(?: "(?<title>.*?)")?\)(?<props>{.*?})?/g,
     element: 'Image',
     element_props: { layout: "fill", objectFit: "contain" },
     wrapper: 'div',
