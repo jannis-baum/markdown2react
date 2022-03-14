@@ -25,3 +25,19 @@ export const span_elements: { [key: string]: { regex: RegExp, element: string, p
     }
 }
 
+// IMAGES
+export const def_image: {
+    regex: RegExp,
+    element: string, element_props: object,
+    wrapper: string | undefined | null, wrapper_props: object | undefined | null,
+    gallery_container: string, gallery_container_props: object
+} = {
+    regex: /!\[(?<altText>.*?)\]\((?<path>.*?)(?: "(?<title>.*?)")?\)(?<props>{.*?})?/,
+    element: 'Image',
+    element_props: { layout: "fill", objectFit: "contain" },
+    wrapper: 'div',
+    wrapper_props: { className: "image-container" },
+    gallery_container: 'div',
+    gallery_container_props: { className: "gallery" }
+}
+
