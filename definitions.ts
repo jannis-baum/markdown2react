@@ -1,4 +1,5 @@
-export type jsonComp = { name: string, props: object }
+export type PropsDef = { [key: string]: any };
+export type JSONComp = { name: string, props: PropsDef };
 
 // SECTIONS
 export const prp_section = (depth: number) => {
@@ -7,7 +8,7 @@ export const prp_section = (depth: number) => {
 export const ele_section = 'div';
 
 // SPAN ELEMENTS
-export const span_elements: { [key: string]: { regex: RegExp, comp: jsonComp } } = {
+export const span_elements: { [key: string]: { regex: RegExp, comp: JSONComp } } = {
     bold: {
         regex: /(?<boldLim>[\*\_]{2})(?<bold>.+?)\k<boldLim>/,
         comp: { name: 'b', props: {} }
@@ -24,7 +25,7 @@ export const span_elements: { [key: string]: { regex: RegExp, comp: jsonComp } }
 }
 
 // IMAGES
-export const def_image: { regex: RegExp, img: jsonComp, wrapper: jsonComp | undefined | null, gallery: jsonComp } = {
+export const def_image: { regex: RegExp, img: JSONComp, wrapper: JSONComp | undefined | null, gallery: JSONComp } = {
     regex: /!\[(?<altText>.*?)\]\((?<path>.*?)(?: "(?<title>.*?)")?\)(?<props>{.*?})?/g,
     img: { name: 'Image', props: { layout: "fill", objectFit: "contain" } },
     wrapper: { name: 'div', props: { className: "image-wrapper" } },
