@@ -27,7 +27,7 @@ function _parseInline(text: string, key: string, name: string = 'span', props: o
         children.push(_parseInline(
             text.slice(start, start + content.length),
             `${key}-${cursor}`,
-            span_elements[format].element, span_elements[format].props
+            span_elements[format].comp.name, span_elements[format].comp.props
         ));
         cursor = matchIndex + match![0].length;
     }
