@@ -1,4 +1,5 @@
 import { PropsDef } from "../definitions";
+import { ComponentDef } from "../markdown2json";
 import { exit } from "process";
 
 export function mergeProps(props1: PropsDef, props2: PropsDef): PropsDef {
@@ -20,4 +21,27 @@ export function mergeProps(props1: PropsDef, props2: PropsDef): PropsDef {
     for (const key of intersect) merge[key] = `${props1[key]} ${props2[key]}`;
     return merge;
 }   
+
+type styleModule = { [key: string]: string };
+export function parseStyleModules(jsonComp: ComponentDef, styleModules: {[key: string]: styleModule }): ComponentDef {
+    if (!('className' in jsonComp.props)) {
+        return jsonComp
+    }
+    const className = jsonComp.props.className.split(' ').map((name: string) => {
+        const match = name.match(/^(?<module>[^.]*)\.(?<style>[^.]*)/);
+        if (!match) return name;
+        const module = match!.groups!.module!;
+        const style = match!.groups!.style!;
+        if (!(module in styleModules) || !(style in styleModules[module])) return name;
+        return styleModules[module]![style];
+    }).join(' ');
+    return {
+        name: jsonComp.name,
+        props: {
+            ...jsonComp.props,
+            className: className
+        },
+        children: jsonComp.children
+    }
+}
 
