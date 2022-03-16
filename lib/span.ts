@@ -22,7 +22,6 @@ function _parseInline(text: string, key: string, name: string = 'span', props: o
 
         const cap = match!.groups!;
         const [format, content] = Object.entries(cap).find(([key, val]) => val && key in span_elements)!;
-        console.log(format, content);
 
         children.push(_parseInline(
             content,
