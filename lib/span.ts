@@ -21,13 +21,20 @@ function _parseInline(text: string, key: string, name: string = 'span', props: o
         children.push(text.slice(cursor, matchIndex));
 
         const cap = match!.groups!;
-        const [format, content] = Object.entries(cap).find(([key, val]) => val && !key.endsWith('Lim'))!;
-        const start = matchIndex + cap[`${format}Lim`]!.length;
+        const [format, content] = Object.entries(cap).find(([key, val]) => val && key in span_elements)!;
+        console.log(format, content);
 
         children.push(_parseInline(
-            text.slice(start, start + content.length),
+            content,
             `${key}-${cursor}`,
-            span_elements[format].comp.name, span_elements[format].comp.props
+            span_elements[format].comp.name,
+            Object.fromEntries(
+                Object.entries(span_elements[format].comp.props).map(([key, value]) => [
+                    key, value.startsWith('$') && value.slice(1) in cap
+                        ? cap[value.slice(1)]
+                        : value
+                ]).filter(([key, value]) => value)
+            )
         ));
         cursor = matchIndex + match![0].length;
     }

@@ -10,17 +10,20 @@ export const ele_section = 'div';
 // SPAN ELEMENTS
 export const span_elements: { [key: string]: { regex: RegExp, comp: JSONComp } } = {
     bold: {
-        regex: /(?<boldLim>[\*\_]{2})(?<bold>.+?)\k<boldLim>/,
+        regex: /(?<bold_lim>[\*\_]{2})(?<bold>.+?)\k<bold_lim>/,
         comp: { name: 'b', props: {} }
     }, italic: {
-        regex: /(?<italicLim>[\*\_])(?<italic>.+?)(?<![\*\_])\k<italicLim>(?![\*\_])/,
+        regex: /(?<italic_lim>[\*\_])(?<italic>.+?)(?<![\*\_])\k<italic_lim>(?![\*\_])/,
         comp: { name: 'i', props: {} }
     }, strikethrough: {
-        regex: /(?<strikethroughLim>[\~]{2})(?<strikethrough>.+?)\k<strikethroughLim>/,
+        regex: /(?<striketrough_lim>[\~]{2})(?<strikethrough>.+?)\k<striketrough_lim>/,
         comp: { name: 's', props: {} }
     }, code: {
-        regex: /(?<codeLim>[\`]+)(?<code>.+?)\k<codeLim>/,
+        regex: /(?<code_lim>[\`]+)(?<code>.+?)\k<code_lim>/,
         comp: { name: 'code', props: {} }
+    }, link: {
+        regex: /\[(?<link>.*?)\]\((?<link_href>.*?)(?: "(?<link_title>.*?)")?\)/,
+        comp: { name: 'a', props: { href: '$link_href', title: '$link_title' } }
     }
 }
 
