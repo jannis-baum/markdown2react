@@ -1,9 +1,6 @@
 import React from "react";
-import { parseStyleModules } from './lib/helpers'
-
-import Image from 'next/image';
-import Link from 'next/link';
-const AllComponents = { Image, Link }
+import { parseStyleModules } from './lib/helpers';
+import { AllComponents } from "./definitions";
 
 export default function json2react(jsonComp, styleModules = undefined) {
     const compDef = styleModules ? parseStyleModules(jsonComp, styleModules) : jsonComp;

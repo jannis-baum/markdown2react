@@ -1,3 +1,7 @@
+// COMPONENTS KNOWN TO PARSER
+import Image from './components/Image';
+export const AllComponents = { Image };
+
 // SECTIONS
 export const prp_section = (depth: number) => {
     return { className: `section-${depth}` }
