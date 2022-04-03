@@ -8,7 +8,7 @@ interface ImageProps {
     className: string
 };
 
-const Image: FC<ImageProps> = (props: ImageProps) => {
+const Image: FC<ImageProps> = (props) => {
     return (
         <div className={`${styles.imageContainer} ${props.className}`}>
             <NextImage src={props.src} alt={props.alt} layout='fill' className={styles.image}></NextImage>
