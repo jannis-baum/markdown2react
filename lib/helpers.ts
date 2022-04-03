@@ -20,7 +20,17 @@ export function mergeProps(props1: PropsDef, props2: PropsDef): PropsDef {
     for (const key of keys2) merge[key] = props2[key];
     for (const key of intersect) merge[key] = `${props1[key]} ${props2[key]}`;
     return merge;
-}   
+}
+
+export function parseCapturedProps(props: PropsDef, cap: { [key: string]: string }): PropsDef {
+    return Object.fromEntries(
+        Object.entries(props).map(([key, value]) => [
+            key, value.startsWith('$') && value.slice(1) in cap
+                ? cap[value.slice(1)]
+                : value
+        ]).filter(([, value]) => value)
+    )
+}
 
 type styleModule = { [key: string]: string };
 export function parseStyleModules(jsonComp: ComponentDef, styleModules: {[key: string]: styleModule }): ComponentDef {

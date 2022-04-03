@@ -1,5 +1,6 @@
 import { ComponentDef } from "../markdown2json";
 import { span_elements } from "../definitions";
+import { parseCapturedProps } from "./helpers";
 
 let regInline = new RegExp(
     Object.keys(span_elements).map((key) =>
@@ -27,13 +28,7 @@ function _parseInline(text: string, key: string, name: string = 'span', props: o
             content,
             `${key}-${cursor}`,
             span_elements[format].comp.name,
-            Object.fromEntries(
-                Object.entries(span_elements[format].comp.props).map(([key, value]) => [
-                    key, value.startsWith('$') && value.slice(1) in cap
-                        ? cap[value.slice(1)]
-                        : value
-                ]).filter(([key, value]) => value)
-            )
+            parseCapturedProps(span_elements[format].comp.props, cap)
         ));
         cursor = matchIndex + match![0].length;
     }
