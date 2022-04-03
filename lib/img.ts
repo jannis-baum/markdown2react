@@ -15,12 +15,11 @@ export const parseImageBlock: ParagraphParser = (para: string, key: string) => {
 
 function image(match: RegExpMatchArray, key: string): ComponentDef {
     const cap = match.groups!;
+    let props = parseCapturedProps(def_image.img.props, cap);
+    if (cap.props) props = mergeProps(props, JSON.parse(cap.props));
     return {
         name: def_image.img.name,
-        props: {
-            key: key,
-            ...mergeProps(parseCapturedProps(def_image.img.props, cap), JSON.parse(cap.props))
-        },
+        props: { key: key, ...props },
         children: null
     };
 }
