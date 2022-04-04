@@ -1,6 +1,7 @@
 // COMPONENTS KNOWN TO PARSER
 import Image from './components/Image';
-export const AllComponents = { Image };
+import Gallery from './components/Gallery';
+export const AllComponents = { Image, Gallery };
 
 // SECTIONS
 export const prp_section = (depth: number) => {
@@ -32,7 +33,7 @@ export const span_elements: { [key: string]: { regex: RegExp, comp: JSONComp } }
 export const def_image: { regex: RegExp, img: JSONComp, gallery: JSONComp } = {
     regex: /!\[(?<altText>.*?)\]\((?<src>.*?)(?: "(?<title>.*?)")?\)(?<props>{.*?})?/g,
     img: { name: 'Image', props: { src: '$src', alt: '$altText', className: 'myImage' } },
-    gallery: { name: 'div', props: { className: "gallery" } }
+    gallery: { name: 'Gallery', props: {} }
 }
 
 // TYPES
