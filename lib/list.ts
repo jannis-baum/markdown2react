@@ -1,6 +1,7 @@
 import { ComponentDef, ParagraphParser } from '../markdown2json';
 import { def_list } from '../definitions';
-import { assert } from '../lib/helpers';
+import { assert } from './helpers';
+import parseSpan from './span';
 
 
 export const parseListBlock: ParagraphParser = (para: string, key: string) => {
@@ -66,10 +67,11 @@ function parseSublist(lines: string[], key: string, startAt: number = 0): { list
 
         // assert(i!.style === info.style, 'non-matching list styles');
         // create new li, delete line
+        parseSpan
         items.push({
             name: def_list.li.name,
             props: { key: k, ...def_list.li.props },
-            children: [content]
+            children: [parseSpan(content, k)]
         });
     }
 
