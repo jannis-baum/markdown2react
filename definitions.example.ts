@@ -27,14 +27,22 @@ export const span_elements: { [key: string]: { regex: RegExp, comp: JSONComp } }
         regex: /\[(?<link>.*?)\]\((?<link_href>.*?)(?: "(?<link_title>.*?)")?\)/,
         comp: { name: 'a', props: { href: '$link_href', title: '$link_title' } }
     }
-}
+};
 
 // IMAGES
 export const def_image: { regex: RegExp, img: JSONComp, gallery: JSONComp } = {
     regex: /!\[(?<altText>.*?)\]\((?<src>.*?)(?: "(?<title>.*?)")?\)(?<props>{.*?})?/g,
     img: { name: 'Image', props: { src: '$src', alt: '$altText', className: 'myImage' } },
     gallery: { name: 'Gallery', props: {} }
-}
+};
+
+// LIST
+export const def_list: { line_regex: RegExp, ul: JSONComp, ol: JSONComp, li: JSONComp } = {
+    line_regex: /^(?<indent>\s*)((?<ul>[-+*])|(?<ol>\d+\.)) (?<content>.*)/,
+    ul: { name: 'ul', props: {} },
+    ol: { name: 'ol', props: {} },
+    li: { name: 'li', props: {} }
+};
 
 // TYPES
 export type PropsDef = { [key: string]: any };

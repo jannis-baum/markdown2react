@@ -1,6 +1,7 @@
-import parseSpan from "./lib/span"
-import section from "./lib/section"
-import { parseImageBlock } from "./lib/img"
+import parseSpan from './lib/span'
+import section from './lib/section'
+import { parseImageBlock } from './lib/img'
+import { parseListBlock } from './lib/list'
 
 export type ComponentDef = {
     name: string,
@@ -14,7 +15,7 @@ export type ParagraphParser = (para: string, key: string) => ComponentDef | null
 
 function parseParagraph(para: string, idx: number): ComponentDef {
     const key = `para-${idx}`
-    for (const parser of [parseImageBlock]) {
+    for (const parser of [parseImageBlock, parseListBlock]) {
         const result = parser(para, key);
         if (result) return result;
     }
