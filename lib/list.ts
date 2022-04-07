@@ -56,8 +56,8 @@ function parseSublist(lines: string[], key: string, startAt: number = 0): { list
             const ret = parseSublist(lines, `${k}-subl`, lp);
             assert(!!ret, 'invalid sublist');
             items.push({
-                name: def_list.li.name,
-                props: { key: k, ...def_list.li.props },
+                name: def_list.li_subl.name,
+                props: { key: k, ...def_list.li_subl.props },
                 children: [ret!.list]
             });
             lp = ret!.linep;

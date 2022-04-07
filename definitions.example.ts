@@ -37,11 +37,12 @@ export const def_image: { regex: RegExp, img: JSONComp, gallery: JSONComp } = {
 };
 
 // LIST
-export const def_list: { line_regex: RegExp, ul: JSONComp, ol: JSONComp, li: JSONComp } = {
+export const def_list: { line_regex: RegExp, ul: JSONComp, ol: JSONComp, li: JSONComp, li_subl: JSONComp } = {
     line_regex: /^(?<indent>\s*)((?<ul>[-+*])|(?<ol>\d+\.)) (?<content>.*)/,
     ul: { name: 'ul', props: {} },
     ol: { name: 'ol', props: {} },
-    li: { name: 'li', props: {} }
+    li: { name: 'li', props: {} },
+    li_subl: { name: 'li_subl', props: { style: { listStyle: 'none' } } }
 };
 
 // TYPES
