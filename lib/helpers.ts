@@ -11,10 +11,10 @@ export function mergeProps(props1: PropsDef, props2: PropsDef): PropsDef {
     }
     
     if (intersect.length === 0) return { ...props1, ...props2 };
-    if (intersect.length > 1 || intersect[0] !== 'className') {
-        console.error(`fatal: unable to merge multiple definitions of ${intersect.filter((key) => key !== 'className')}.`);
-        exit(1);
-    }
+    assert(
+        !(intersect.length > 1 || intersect[0] !== 'className'),
+        `unable to merge multiple definitions of ${intersect.filter((key) => key !== 'className')}.`
+    )
     let merge: PropsDef = {};
     for (const key of keys1) merge[key] = props1[key];
     for (const key of keys2) merge[key] = props2[key];
@@ -52,6 +52,13 @@ export function parseStyleModules(jsonComp: ComponentDef, styleModules: {[key: s
             className: className
         },
         children: jsonComp.children
+    }
+}
+
+export function assert(condition: boolean, message: string) {
+    if (!condition) {
+        console.error(`fatal: ${message}`);
+        exit(1);
     }
 }
 
