@@ -1,5 +1,5 @@
-import parseSpan from './lib/span'
-import section from './lib/section'
+import { parseSpan } from './lib/span'
+import { section } from './lib/section'
 import { parseImageBlock } from './lib/img'
 import { parseListBlock } from './lib/list'
 

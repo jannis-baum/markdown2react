@@ -1,7 +1,7 @@
 import { ComponentDef, ParagraphParser } from '../markdown2json';
 import { def_list } from '../definitions';
 import { assert } from './helpers';
-import parseSpan from './span';
+import { parseSpan } from './span';
 
 
 export const parseListBlock: ParagraphParser = (para: string, key: string) => {

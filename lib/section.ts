@@ -1,7 +1,7 @@
 import { ComponentDef } from "../markdown2json";
 import { prp_section, ele_section } from "../definitions";
 
-export default function section(paras: Array<ComponentDef>): ComponentDef {
+export function section(paras: Array<ComponentDef>): ComponentDef {
     return _section(paras, 'section-body');
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { parseStyleModules } from './lib/helpers';
 import { AllComponents } from "./definitions";
 
-export default function json2react(jsonComp, styleModules = undefined) {
+export function json2react(jsonComp, styleModules = undefined) {
     const compDef = styleModules ? parseStyleModules(jsonComp, styleModules) : jsonComp;
     return React.createElement(
         AllComponents[compDef.name] ?? compDef.name,

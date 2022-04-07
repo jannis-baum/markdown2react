@@ -8,7 +8,7 @@ let regInline = new RegExp(
     ).join('|')
 );
 
-export default function parseSpan(span: string, parentKey: string): ComponentDef {
+export function parseSpan(span: string, parentKey: string): ComponentDef {
     const key = `${parentKey}-span`;
     return _parseInline(span.replace(/\s+/g, ' '), key);
 }
