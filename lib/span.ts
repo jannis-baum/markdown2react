@@ -1,5 +1,5 @@
 import { ComponentDef } from "../markdown2json";
-import { span_elements } from "../definitions";
+import { span_elements } from "../../definitions";
 import { parseCapturedProps } from "./helpers";
 
 let regInline = new RegExp(

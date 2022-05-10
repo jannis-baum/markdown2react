@@ -1,4 +1,4 @@
-import { PropsDef } from "../definitions";
+import { PropsDef } from "../../definitions";
 import { ComponentDef } from "../markdown2json";
 import { exit } from "process";
 

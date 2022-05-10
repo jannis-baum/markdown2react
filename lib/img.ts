@@ -1,5 +1,5 @@
 import { ComponentDef, ParagraphParser } from "../markdown2json";
-import { def_image } from "../definitions";
+import { def_image } from "../../definitions";
 import { mergeProps, parseCapturedProps } from "./helpers";
 
 export const parseImageBlock: ParagraphParser = (para: string, key: string) => {

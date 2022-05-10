@@ -1,5 +1,5 @@
 import { ComponentDef } from "../markdown2json";
-import { prp_section, ele_section } from "../definitions";
+import { prp_section, ele_section } from "../../definitions";
 
 export function section(paras: Array<ComponentDef>): ComponentDef {
     return _section(paras, 'section-body');
